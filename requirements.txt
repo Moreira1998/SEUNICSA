@@ -19,4 +19,5 @@ six==1.16.0
 sqlparse==0.5.1
 typing_extensions==4.12.2
 tzdata==2024.2
-virtualenv==20.27.1
+virtualenv==20.27.1 
+gunicorn==23.0.0
