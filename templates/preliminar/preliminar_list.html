@@ -1,0 +1,70 @@
+{% extends 'index.html' %}
+{% block pageContent %}
+    {% if preliminar_list %}
+        <h2 class="mt-3">Registro De Preliminar</h2>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="{% url 'nomina:inicio' %}">SEUNICSA</a></li>
+            <li class="breadcrumb-item active">Preliminar</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-body">
+                Agregar un nuevo registro al sistema de nomina <strong>SEUNICSA</strong>
+            </div>
+        </div>
+        {% for campania, cargos in preliminares.items %}
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span>
+                    <i class="fas fa-table me-1"></i>
+                    Registro De Preliminar {{ campania }}
+                </span>
+                {% if user.is_staff %}
+                    <a href="{% url 'nomina:export_preliminar' campania.id %}" class="text-success">
+                        <i class="fa-solid fa-file-excel fa-lg"></i>
+                    </a>
+                {% endif %}
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Cargo</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Salario Base</th>
+                            <th scope="col">Vacaciones</th>
+                            <th scope="col">Aguinaldo</th>
+                            <th scope="col">Indemnización</th>
+                            <th scope="col">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cargo, datos in cargos.items %}
+                            <tr>
+                                <td>{{ cargo }}</td>
+                                <td>{{ datos.cantidad }}</td>
+                                <td>{{ datos.salario_base }}</td>
+                                <td>{{ datos.vacaciones.valor }}</td>
+                                <td>{{ datos.aguinaldo.valor }}</td>
+                                <td>{{ datos.indemnizacion.valor }}</td>
+                                <td>{{ datos.total }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endfor %}
+    
+    {% else %}
+        <h1 class="mt-4">Registro De Preliminar</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="{% url 'nomina:inicio' %}">SEUNICSA</a></li>
+            <li class="breadcrumb-item active">Preliminar</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-body">
+                Agregar un nuevo registro al sistema de nomina <strong>SEUNICSA</strong>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

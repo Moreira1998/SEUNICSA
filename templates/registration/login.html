@@ -1,0 +1,78 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block pageWrapper %}
+    {% if form.errors %}
+        <div class="alert alert-warning" role="alert">
+            Su nombre de usuario y contraseña no coinciden. ¡Inténtalo de nuevo!
+        </div>
+    {% endif %}
+
+    {% if next %}
+        {% if user.is_authenticated %}
+            <div class="alert alert-warning" role="alert">
+                Su cuenta no tiene acceso a esta página. ¡Para proceder,
+                inicie sesión con una cuenta que tenga acceso!
+            </div>
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                Inicia sesión para ver esta página.!
+            </div>
+        {% endif %}
+    {% endif %}
+    <div class="container">
+        <!-- Outer Row -->
+        <div class="row justify-content-center>
+
+            <div class=" col-xl-10 col-lg-12 col-md-9
+        ">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                        <img src="{% static 'assets/img/logo.jpg' %}" alt="">
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Bienvenidos SEUNICSA</h1>
+                            </div>
+                            <form class="user" method="POST">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user"
+                                           id="id_username" name="username" aria-describedby="emailHelp"
+                                           placeholder="Usuario">
+                                </div>
+                                <div class="form-group mt-2">
+                                    <input type="password" class="form-control form-control-user"
+                                           id="id_password" name="password" placeholder="Password">
+                                </div>
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary btn-user btn-block mt-3">Acceder</button>
+                                <hr>
+                                <div class="sb-sidenav-footer text-center" style="padding: 20px;">
+                                    <p style="margin: 0; font-size: 14px;">Desarrollado por:</p>
+                                    <h6>
+                                        <a href="https://www.linkedin.com/in/noel-moreira-a68057177?originalSubdomain=ni" 
+                                           target="_blank" 
+                                           style="color: #00aaff; text-decoration: none; transition: color 0.3s;">
+                                            <i class="fas fa-laptop-code"></i> Noel Moreira
+                                        </a>
+                                    </h6>
+                                </div>
+                                
+                                <style>
+                                    .sb-sidenav-footer a:hover {
+                                        color: #007bff; /* Cambia el color del enlace al pasar el ratón */
+                                    }
+                                </style>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

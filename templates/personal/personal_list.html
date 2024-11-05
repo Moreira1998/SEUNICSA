@@ -1,0 +1,80 @@
+{% extends 'index.html' %}
+{% block pageContent %}
+    {% if personal_list %}
+        <h2 class="mt-3">Registro De Personal</h2>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="{% url 'nomina:inicio' %}">SEUNICSA</a></li>
+            <li class="breadcrumb-item active">Personal</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-body">
+                Agregar un nuevo registro al sistema de nomina <strong>SEUNICSA</strong>
+                <div class=" py-3">
+                    <a href="{% url 'nomina:personal_create' %}" class="btn btn-primary"><i
+                            class="fas fa-plus-circle"></i> Agregar</a>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Registro De Personal
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                    <tr>
+                        <th scope="col">Cedula</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">INSS</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th scope="col">Cedula</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">INSS</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for personal in personal_list %}
+                        <tr>
+                            <td>{{ personal.cedula }}</td>
+                            <td>{{ personal.nombre }}</td>
+                            <td>{{ personal.inss }}</td>
+                            <td>
+                                
+                                <a href="{% url 'nomina:personal_update' personal.cedula %}"
+                                class="btn btn-success btn-circle btn-sm">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{% url 'nomina:personal_delete' personal.cedula %}"
+                                class="btn btn-danger btn-circle btn-sm">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <h1 class="mt-4">Registro De Personal</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="{% url 'nomina:inicio' %}">SEUNICSA</a></li>
+            <li class="breadcrumb-item active">Personal</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-body">
+                Agregar un nuevo registro al sistema de nomina <strong>SEUNICSA</strong>
+                <div class=" py-3">
+                    <a href="{% url 'nomina:personal_create' %}" class="btn btn-primary"><i
+                            class="fas fa-plus-circle"></i> Agregar</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

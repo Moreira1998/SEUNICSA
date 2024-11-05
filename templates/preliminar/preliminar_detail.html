@@ -1,0 +1,92 @@
+{% extends 'index.html' %}
+{% block pageContent %}
+    {% if form.errors %}
+        <div class="alert alert-danger m-4" role="alert">
+            Verifique los valores <strong> - intente de nuevo!</strong>
+        </div>
+    {% endif %}
+    <ol class="breadcrumb mb-4 m-lg-3">
+            <li class="breadcrumb-item"><a href="#">Nomina</a></li>
+            <li class="breadcrumb-item active">Registro</li>
+        </ol>
+    <div class="card shadow-lg border-0 rounded-lg mt-5 mx-4">
+        <div class="card-header">
+            <strong>Registro De Nomina</strong>
+        </div>
+
+        <div class="card-body">
+                <div class="row">
+                    <div class="col border-bottom m-lg-3">
+                        <label for=""><b>Nombre: </b> {{ preliminar.personal }}</label>
+                    </div>
+                    <div class="col border-bottom m-lg-3">
+                        <label for=""><b>Campaña: </b> {{ preliminar.campania }}</label>
+                    </div>
+                    <div class="col border-bottom m-lg-3">
+                        <label for=""><b>Cargo: </b> {{ preliminar.cargo }}</label>
+                    </div>
+                    <div class="col border-bottom m-lg-3">
+                        <label for=""><b>Tonelaje: </b> {{ preliminar.campania.tonelaje }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col border-bottom m-lg-3">
+                        <label for=""><b>Salario cargo: </b> {{ preliminar.total_base }}</label>
+                    </div>
+                    <div class="col border-bottom m-lg-3">
+                        <label for=""><b>Total descargue: </b> {{ sumatoria_monto }}</label>
+                    </div>
+                    <div class="col border-bottom m-lg-3">
+                        <label for=""><b>Dias trabajados: </b> {{ sumatoria_dias }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col border-bottom m-lg-3">
+                        <label for=""><b>Salario Base: </b> {{ sumatoria_salario_base }}</label>
+                    </div>
+                    <div class="col border-bottom m-lg-3">
+                        <label for=""><b>Vacaciones: </b> {{ sumatoria_vacaciones }}</label>
+                    </div>
+                    <div class="col border-bottom m-lg-3">
+                        <label for=""><b>Aguinaldo: </b> {{ sumatoria_aguinaldo }}</label>
+                    </div>
+                    <div class="col border-bottom m-lg-3">
+                        <label for=""><b>Indemnizacion: </b> {{ sumatoria_indemnizacion }}</label>
+                    </div>
+                    <div class="col border-bottom m-lg-3">
+                        <label for=""><b>Total: </b> {{ sumatoria_salario_dia }}</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col border-bottom m-lg-3">
+                        <label for=""><b>INSS Laboral: </b> {{ inss_laboral }}</label>
+                    </div>
+                    <div class="col border-bottom m-lg-3">
+                        <label for=""><b>INSS Patronal: </b> {{ inss_patronal }}</label>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Campaña</th>
+                            <th>Descargado TM</th>
+                            <th>Cantidad cargo</th>
+                            <th>Salario dia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for datos in coincidencias %}
+                            <tr>
+                                <td>{{ datos.fecha }}</td> <!-- ID podría ser dinámico -->
+                                <td>{{ datos.campania }}</td>
+                                <td>{{ datos.monto }}</td>
+                                <td>{{ datos.cantidad_personal }}</td>
+                                <td>{{ datos.salario_por_dia }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+    </div>
+{% endblock pageContent %}

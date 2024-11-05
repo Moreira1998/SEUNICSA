@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+{% block pageContent %}
+    {% if form.errors %}
+        <div class="alert alert-danger m-4" role="alert">
+          Verifique los valores <strong> - intente de nuevo!</strong>
+        </div>
+    {% endif %}
+    <div class="card shadow-lg border-0 rounded-lg mt-5 mx-4">
+        <div class="card-header">
+            <strong>Registro De Descargue</strong>
+        </div>
+        <div class="card-body">
+            <form method="post">{% csrf_token %}
+                <p>Está seguro que desea eliminar "{{ object }}" ?</p>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-trash"></i>
+                    Eliminar
+                </button>
+                <a href="{% url 'nomina:personal_list' %}" class="btn btn-secondary">
+                    <i class="fas fa-times-circle"></i>
+                    Cancelar
+                </a>
+            </form>
+        </div>
+    </div>
+{% endblock pageContent %}

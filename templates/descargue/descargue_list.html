@@ -1,0 +1,92 @@
+{% extends 'index.html' %}
+{% block pageContent %}
+    {% if descargue_list %}
+        <h2 class="mt-3">Registro Descargue</h2>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="#">SEUNICSA</a></li>
+            <li class="breadcrumb-item active">Descargue</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-body">
+                Agregar un nuevo registro al sistema de nomina <strong>SEUNICSA</strong>
+                <div class=" py-3">
+                    <a href="{% url 'nomina:descargue_create' %}" class="btn btn-primary"><i
+                            class="fas fa-plus-circle"></i> Agregar</a>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Registro Descargue
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                    <tr>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Campaña</th>
+                        <th scope="col">Tonelaje</th>
+                        <th scope="col">Descarga</th>
+                        <th scope="col">Restante</th>
+                        {% if user.is_superuser %}
+                            <th scope="col">Acciones</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Campaña</th>
+                        <th scope="col">Tonelaje</th>
+                        <th scope="col">Descarga</th>
+                        <th scope="col">Restante</th>
+                        {% if user.is_superuser %}
+                            <th scope="col">Acciones</th>
+                        {% endif %}
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for carga in descargue_list %}
+                        <tr>
+                            <td>{{ carga.fecha }}</td>
+                            <td>{{ carga.campania }}</td>
+                            <td>{{ carga.campania.tonelaje }}</td>
+                            <td>{{ carga.monto }}</td>
+                            <td>{{ carga.carga_restante }}</td>
+                            {% if user.is_superuser %}
+                                <td>
+                                    
+                                    <a href="{% url 'nomina:descargue_update' carga.id %}"
+                                    class="btn btn-success btn-circle btn-sm">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="{% url 'nomina:descargue_delete' carga.id %}"
+                                    class="btn btn-danger btn-circle btn-sm">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <h1 class="mt-4">Registro De Descargue</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="{% url 'nomina:inicio' %}">SEUNICSA</a></li>
+            <li class="breadcrumb-item active">Descargue</li>
+        </ol>
+        <div class="card mb-4">
+            <div class="card-body">
+                Agregar un nuevo registro al sistema de nomina <strong>SEUNICSA</strong>
+                <div class=" py-3">
+                    <a href="{% url 'nomina:descargue_create' %}" class="btn btn-primary"><i
+                            class="fas fa-plus-circle"></i> Agregar</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
